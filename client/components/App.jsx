@@ -1,5 +1,8 @@
 import React from 'react';
 import styles from '../css/styles.css';
+import Tag from './Tag';
+import Reviews from './Reviews';
+import Availability from './Availability';
 
 class App extends React.Component {
   constructor(props) {
@@ -28,8 +31,8 @@ class App extends React.Component {
       tag: number({ min: 0, max: 3 }),
       price: `${number({ min: 10, max: 499 })}.99`,
       online_inventory: number({ min: 0, max: 1 }),
-      rating: Math.random() * 5,
-      review_count: number({ min: 0, max: 1000 }),
+      rating: (Math.random() * 5).toFixed(2),
+      review_count: number({ min: 0, max: 12000 }),
       customer_limit: number({ min: 5, max: 12 }),
       liked: number({ min: 0, max: 1 }),
       category_1: `${commerce.productMaterial()}™`,
@@ -45,12 +48,12 @@ class App extends React.Component {
       <div className={styles.pageContainer}>
         <div className={styles.productWrapper}>
           <div className={`container ${styles.container}`}>
-            <p className={styles.productLine}>
-              {product.product_line}
-            </p>
-            <h1 className={styles.productTitle}>
-              {product.name}
-            </h1>
+            <Tag tag={Number(product.tag)} />
+            <p className={styles.productLine}>  {product.product_line}  </p>
+            <h1 className={styles.productTitle}>  {product.name}  </h1>
+            <Reviews rating={Number(product.rating)} count={Number(product.review_count)} />
+            <h1 className={styles.price}>  {`$${product.price}`}  </h1>
+            <Availability onlineInv={Number(product.online_inventory)} />
           </div>
         </div>
       </div>

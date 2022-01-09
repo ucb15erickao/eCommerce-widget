@@ -20,13 +20,14 @@ body {
 }
 
 .pageContainer {
-  width: 79rem;
+  width: 75%;
   margin: 0 auto;
 }
 
 .productWrapper {
   display: flex;
-  justify-content: center;
+  flex-direction: row-reverse;
+  justify-content: right;
   padding: 2rem 0;
 }
 
@@ -36,8 +37,8 @@ body {
   position: relative;
   display: block;
   top: 0;
-  left: 0;
-  width: 100%;
+  right: 0;
+  width: 32%;
   min-width: 259.5px;
   background-color: #FFF;
   color: #2c2c2c;
