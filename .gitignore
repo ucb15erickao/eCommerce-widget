@@ -104,6 +104,6 @@ typings/
 .tern-port
 
 # Misc
-src/
+client/
 server/
 *.license.txt
