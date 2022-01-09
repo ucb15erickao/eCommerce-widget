@@ -32,7 +32,8 @@ module.exports = {
       {
         test: /\.(png|woff|woff2|eot|ttf|svg|otf)$/,
         exclude: /node_modules/,
-        loader: 'url-loader',
+        // loader: 'url-loader',
+        type: 'asset/resource',
       },
     ],
   }

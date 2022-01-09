@@ -19,6 +19,10 @@
   },
   "homepage": "https://github.com/ucb15erickao/eCommerce-widget#readme",
   "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
     "@babel/core": "^7.16.7",
     "@babel/preset-env": "^7.16.7",
     "@babel/preset-react": "^7.16.7",
@@ -26,8 +30,6 @@
     "css-loader": "^6.5.1",
     "express": "^4.17.2",
     "faker": "^5.1.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
     "style-loader": "^3.3.1",
     "webpack": "^5.65.0",
     "webpack-cli": "^4.9.1"
