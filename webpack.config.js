@@ -30,11 +30,15 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|woff|woff2|eot|ttf|svg|otf)$/,
+        test: /\.(woff|woff2|otf)$/,
         exclude: /node_modules/,
-        // loader: 'url-loader',
         type: 'asset/resource',
       },
+      {
+        test: /\.svg/,
+        exclude: /node_modules/,
+        type: 'asset/inline',
+      }
     ],
   }
 };

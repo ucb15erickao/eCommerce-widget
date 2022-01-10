@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../css/styles.css';
 
 const StoreSelect = ({
-  nearbyStores, productInventory, store, toggleDrop, storeMenuExpansion, selectStore,
+  nearbyStores, store, toggleDrop, storeMenuExpansion, selectStore,
 }) => (
   <div className={styles.selectContainer}>
 
@@ -36,7 +36,7 @@ const StoreSelect = ({
     {storeMenuExpansion === 'expanded' && (
       <div className={styles.dropdown}>
         {nearbyStores.map((currentStore, i) => {
-          const currentStoreInv = productInventory[currentStore.id - 1].inventory;
+          const currentStoreInv = currentStore.inventory;
           return (
             <button type="button" className={styles.dropdownItem} key={currentStore.name} onClick={() => { selectStore(store, currentStore, i); }}>
               {currentStoreInv > 0 && (

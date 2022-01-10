@@ -19,7 +19,6 @@ class App extends React.Component {
       stores: [],
       nearbyStores: [],
       store: {},
-      productInventory: new Array(20).fill({}),
       searchField: '',
       validZip: true,
       limitTooltip: false,
@@ -58,7 +57,7 @@ class App extends React.Component {
     const stores = [];
     for (let i = 1; i <= 20; i++) {
       const random = Math.floor(Math.random() * 2);
-      const inv = random === 0 ? 0 : number({ min: 1, max: 20 });
+      const inventory = random === 0 ? 0 : number({ min: 1, max: 20 });
       const fakeStore = {
         id: i,
         name: `LEGO® Store ${address.streetName()}`,
@@ -68,6 +67,7 @@ class App extends React.Component {
         zip: address.zipCode('#####'),
         phone: phoneNumber(),
         details: `https://fec-lego.s3-us-west-1.amazonaws.com/Store+Details/store+${i}.png`,
+        inventory,
       };
       stores.push(fakeStore);
     };
@@ -81,19 +81,12 @@ class App extends React.Component {
     for (let i = 0; i < random; i++)
       nearbyStores.push(storesCopy.splice(Math.floor(Math.random() * storesCopy.length), 1)[0]);
 
-    this.setState({ product, store, stores, nearbyStores });
+    this.setState({ product, store, stores, nearbyStores }, () => { console.log('this.state.store:', this.state.store); });
   };
 
   adjustQuantity(buttonText) {
     const { quantityField } = this.state;
-    // let newQuantity = quantityField;
-
-    // if (buttonText === '+')
-    //   newQuantity++;
-    // else
-    //   newQuantity--;
-
-    this.setState({ quantityField: buttonText === '+' ?  quantityField++ : quantityField-- });
+    this.setState({ quantityField: buttonText === '+' ?  quantityField + 1 : quantityField - 1 });
   }
 
   inputQuantity(userInput) {
@@ -128,19 +121,12 @@ class App extends React.Component {
 
   updateWishlist() {
     const { product } = this.state;
-    // const productUpdate = product;
-    // productUpdate.liked = !product.liked;
     product.liked = !product.liked;
-    // this.setState({ product: productUpdate });
     this.setState({ product });
   };
 
   expander() {
     const { stockExpansion } = this.state;
-    // let updatedStatus = 'minimized';
-    // if (stockExpansion === 'minimized') {
-    //   updatedStatus = 'expanded';
-    // }
     this.setState({
       stockExpansion: stockExpansion === 'minimized' ? 'expanded' : 'minimized',
       storeMenuExpansion: 'minimized',
@@ -169,11 +155,10 @@ class App extends React.Component {
       const storesCopy = stores.slice();
       storesCopy.splice(sid - 1, 1);
       const random = Math.floor(Math.random() * 3) + 3;
-      for (let i = 0; i < random; i++) {
-        const removed = storesCopy.splice(Math.floor(Math.random() * storesCopy.length), 1);
-        nearbyStores.push(removed[0]);
-      }
+      for (let i = 0; i < random; i++)
+        nearbyStores.push(storesCopy.splice(Math.floor(Math.random() * storesCopy.length), 1)[0]);
       const store = storesCopy[Math.floor(Math.random() * storesCopy.length)];
+
       this.setState({
         validZip: true,
         store,
@@ -186,10 +171,6 @@ class App extends React.Component {
 
   toggleDrop() {
     const { storeMenuExpansion } = this.state;
-    // let updatedStatus = 'minimized';
-    // if (storeMenuExpansion === 'minimized') {
-    //   updatedStatus = 'expanded';
-    // }
     this.setState({ storeMenuExpansion: storeMenuExpansion === 'minimized' ? 'expanded' : 'minimized' });
   };
 
@@ -209,8 +190,7 @@ class App extends React.Component {
   render() {
     const {
       product, quantityField, searchField, stores, nearbyStores, store, stockExpansion,
-      storeMenuExpansion, productInventory, sid, validZip, limitTooltip, closestTooltip,
-      detailsTooltip,
+      storeMenuExpansion, sid, validZip, limitTooltip, closestTooltip, detailsTooltip,
     } = this.state;
     return (
       <div className={styles.pageContainer}>
@@ -246,10 +226,8 @@ class App extends React.Component {
               storeMenuExpansion={storeMenuExpansion}
               stores={stores}
               nearbyStores={nearbyStores}
-              productInventory={productInventory}
               store={store}
               sid={sid}
-              inventory={Number(productInventory[sid - 1].inventory)}
               closestTooltip={closestTooltip}
               detailsTooltip={detailsTooltip}
             />
